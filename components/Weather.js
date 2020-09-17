@@ -1,24 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-
-export default function Weather( props ) {
   
-  return (
-    <View style={styles.container} >
-      <Text style = {{fontSize: 30}}>Weather {props.zipCode}</Text>
-      <View style={{width: 30,height: 20, backgroundColor: 'red', }}></View>
-      <View style={{width: 30,height: 20, backgroundColor: 'blue', }}></View>  
-      <View style={{width: 30,height: 20, backgroundColor: 'red', }}></View>  
-      <View style={{width: 30,height: 20, backgroundColor: 'blue', }}></View>    
-    </View>
-  );
+import React, { useState } from 'react';
+import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import Forecast from './Forecast';
+
+export default function Weather(props) {
+    const [forecastInfo, setForecastInfo] = useState({
+        main: 'main',
+        description: 'description',
+        temp: 0,
+    })
+    return (
+        <View>
+            <ImageBackground source={require('../bg.jpg')} style={styles.backdrop}>
+                <View style={styles.cover}>
+                    <Text>Zip Code</Text>
+                    <Text>{props.zipCode}</Text>
+                    <Forecast {...forecastInfo} />
+                </View>
+            </ImageBackground>
+        </View>
+    );
 }
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#0999',
+    backdrop: {
         alignItems: 'center',
-        justifyContent: 'center',
-        },
-  })
-  
+        width: '100%',
+        height: '100%',
+    },
+    cover: {
+        backgroundColor: '#000', 
+        width: '100%',
+        height: 300,
+        opacity: 0.3,
+    }
+});
